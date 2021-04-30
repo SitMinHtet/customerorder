@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<body>
+
+<div class="container mt-5">
+
+    <form class="form-inline ml-auto" th:action="@{/search}">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </span>
+            </div>
+            <input class="form-control" name="orderId"  placeholder="Enter Order ID" type="search" aria-label="Search">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Search
+                </button>
+            </div>
+        </div>
+        <!-- <button class="btn btn-outline-light my-2 my-sm-0 d-block" type="submit">Search</button> -->
+    </form>
+</div>
+
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table mt-5">
+            <thead>
+            <tr>
+                <th>注文ID</th>
+                <th>配達希望日</th>
+                <th>注文日</th>
+                <th>ステータス</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="orders :${orderLists}">
+                <td th:text="${orders.orderedId}"></td>
+                <td th:text="${orders.desiredDeliveryDate}"></td>
+                <td th:text="${orders.orderedDate}"></td>
+                <td th:text="${orders.status}"></td>
+                <td>
+                    <a href="#" th:href="@{'/update/'+${orders.id}}"
+                       class="btn btn-primary">Update</a>
+                </td>
+                <td>
+                    <a href="#" th:href="@{'/delete/'+${orders.id}}"
+                       class="btn btn-primary">Delete</a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

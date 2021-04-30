@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<body>
+
+<div class="container">
+    <div class="mb-5">
+        <h1 class="text-primary text-center mt-5">注文入力</h1>
+    </div>
+    <div class="container mb-5">
+        <a type="button" class="btn btn-primary mt-3" th:href="@{/addOrder}">Back</a>
+    </div>
+
+    <form th:action="@{/processEntry}" th:object="${addEntry}" method="post">
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label  class="col-sm-3 col-form-label">注文ID<i style="color: red;">*</i></label>
+                <div>
+                    <input type="text" class="form-control" >
+                </div>
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label  class="col-sm-3 col-form-label">配達希望日<i style="color: red;">*</i></label>
+                <div>
+                    <input th:field="*{desiredDeliveryDate}" type="date" class="form-control" >
+                </div>
+
+            </div>
+            <div class="form-group row col-md-6">
+                <label  class="col-sm-3 col-form-label">電話番号<i style="color: red;">*</i></label>
+                <div>
+                    <input th:field="*{phoneNumber}"  type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group row col-sm-6">
+                <label class="col-sm-3 col-form-label">住所<i style="color: red;">*</i></label>
+                <div class="form-group">
+                    <textarea th:field="*{address}" class="form-control"  rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="table-responsive">
+            <table class="table mt-5">
+                <thead>
+                <tr>
+                    <th>商品明細情報</th>
+                    <th>商品タイプ<i style="color: red;">*</i></th>
+                    <th>商品<i style="color: red;">*</i></th>
+                    <th>注文数<i style="color: red;">*</i></th>
+                    <th>売単価</th>
+                    <th>売金額</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <a class="btn btn-primary">Details</a>
+                    </td>
+                    <td>
+                        <select id="productType" th:field="*{productType}" class="form-control">
+                            <option th:each="pt :${productType}"
+                                    th:value="${pt}" th:text="${pt}"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="product" th:field="*{productName}" class="form-control">
+                            <option th:each="pn :${productName}"
+                                    th:value="${pn}" th:text="${pn}"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <input th:field="*{noOfOrdered}"  type="number" class="form-control">
+                    </td>
+                    <td>
+                        <input  type="text" class="form-control">
+                    </td>
+                    <td>
+                        <input  type="text" class="form-control">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="float-right">
+            <a th:href="@{/addOrder}" type="button" class="btn btn-primary mt-3 mr-3">登録</a>
+
+            <button type="submit" class="btn btn-primary mt-3">キャンセル</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

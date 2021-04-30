@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<body>
+<div class="container">
+    <div class="mb-5">
+        <h1 class="text-primary text-center mt-5">Order List</h1>
+    </div>
+    <form th:action="@{/processList}"  th:object="${OrderId}" method="post">
+        <div class="form-row">
+
+
+            <div class="form-group row col-md-6">
+                <label for="orderId"  class="col-sm-2 col-form-label">Order ID</label>
+                <div>
+                    <input id="orderId" th:field="*{orderedId}"  type="text" class="form-control" >
+                </div>
+
+            </div>
+
+            <div class="form-group row col-md-6">
+                <label for="date"  class="col-sm-3 col-form-label">Order Date</label>
+                <div>
+                    <input id="date" th:field="*{orderedDate}"  type="date" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label for="status"  class="col-sm-2 col-form-label">Status</label>
+                <div>
+                    <select id="status" th:field="*{status}" class="form-control">
+                        <option th:each="sta :${statusList}"
+                                th:value="${sta}" th:text="${sta}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row col-md-6">
+                <label for="ddate"  class="col-sm-3 col-form-label">Desired Delivery Date</label>
+                <div>
+                    <input id="ddate" th:field="*{desiredDeliveryDate}"  type="date" class="form-control">
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <div>
+                    <button type="submit" class="btn btn-primary mt-3">Update</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

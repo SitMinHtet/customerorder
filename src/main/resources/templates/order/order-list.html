@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<body>
+<div class="container">
+    <div class="mb-5">
+        <h1 class="text-primary text-center mt-5">Order List</h1>
+    </div>
+    <form th:action="@{/processList}"  th:object="${addOrder}" method="post">
+        <div class="form-row">
+
+
+
+            <div class="form-group row col-md-6">
+                <label for="orderId"  class="col-sm-3 col-form-label">注文ID</label>
+                <div>
+                    <input id="orderId" th:field="*{orderedId}"  type="text" class="form-control" >
+                </div>
+
+            </div>
+
+            <div class="form-group row col-md-6">
+                <label for="date"  class="col-sm-3 col-form-label">注文日</label>
+                <div>
+                    <input id="date" th:field="*{orderedDate}"  type="date" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <label for="status"  class="col-sm-3 col-form-label">ステータス</label>
+                <div>
+                    <select id="status" th:field="*{status}" class="form-control">
+                        <option th:each="sta :${statusList}"
+                                th:value="${sta}" th:text="${sta}"></option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group row col-md-6">
+                <div class="col-sm-3 col-form-label"></div>
+                <div>
+                    <button th:value="${keyword}" type="submit" class="btn btn-primary mt-3 mr-5">検索</button>
+                </div>
+                <div>
+                    <a type="button" th:href="@{/addOrder}" class="btn btn-primary mt-3 mr-5">クリア</a>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary mt-3">追加</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table mt-5">
+                <thead>
+                <tr>
+                    <th>注文ID</th>
+                    <th>配達希望日</th>
+                    <th>注文日</th>
+                    <th>ステータス</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="orders :${orderLists}">
+                    <td th:text="${orders.orderedId}"></td>
+                    <td th:text="${orders.desiredDeliveryDate}"></td>
+                    <td th:text="${orders.orderedDate}"></td>
+                    <td th:text="${orders.status}"></td>
+                    <td>
+                        <a href="#" th:href="@{'/update/'+${orders.id}}"
+                           class="btn btn-primary">Update</a>
+                    </td>
+                    <td>
+                        <a href="#" th:href="@{'/delete/'+${orders.id}}"
+                           class="btn btn-primary">Delete</a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</div>
+
+</body>
+</html>
